@@ -9,6 +9,16 @@
       "telefone": "11999999999",
       "peso": 85,
       "altura": 175
+    },
+    {
+      "nome": "derek",
+      "sobrenome": "oliveira",
+      "email": "derek@email.com",
+      "senha": "123456",
+      "telefone": "53999999999",
+      "peso": 77,
+      "altura": 178,
+      "id": 2
     }
   ],
   "treinos": [
@@ -118,6 +128,39 @@
           "concluido": false
         }
       ]
+    },
+    {
+      "usuarioId": 2,
+      "nome": "Peito / Tríceps",
+      "tipo": "PERSONALIZADO",
+      "duracao": 30,
+      "exercicios": [
+        {
+          "nome": "Supino Reto",
+          "reps": "8-12",
+          "peso": "25",
+          "series": 1,
+          "descanso": "1min.",
+          "concluido": false
+        },
+        {
+          "nome": "Supino Inclinado",
+          "reps": "8-12",
+          "peso": "27",
+          "series": 1,
+          "descanso": "1min.",
+          "concluido": false
+        },
+        {
+          "nome": "Tríceps Testa",
+          "reps": "8-12",
+          "peso": "55",
+          "series": 1,
+          "descanso": "1min.",
+          "concluido": false
+        }
+      ],
+      "id": 4
     }
   ],
   "categorias": [
@@ -229,6 +272,14 @@
       "nome": "Funcional",
       "tipo": "funcional",
       "membros": []
+    },
+    {
+      "nome": "corrida",
+      "tipo": "personalizado",
+      "membros": [
+        2
+      ],
+      "id": 5
     }
   ],
   "midias": [
