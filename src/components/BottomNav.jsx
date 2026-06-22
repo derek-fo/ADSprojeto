@@ -1,7 +1,9 @@
 import { NavLink } from 'react-router-dom';
 
+import homeIcon from '../assets/icons/home.svg';
+
 const ITEMS = [
-  { to: '/inicio',      label: 'Início',  icon: '🏠' },
+  { to: '/inicio',      label: 'Início',  icon: homeIcon },
   { to: '/novo-treino', label: 'Começar', icon: '▶️' },
   { to: '/treino/1',    label: 'Treinos', icon: '🏋️' },
   { to: '/grupos',      label: 'Grupos',  icon: '👥' },

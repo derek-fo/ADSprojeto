@@ -4,6 +4,8 @@ import BottomNav from '../components/BottomNav';
 import { useAuth } from '../context/AuthContext';
 import { getMidias } from '../api/midias';
 
+import configIcon from '../assets/icons/config.svg';
+
 export default function Perfil() {
   const nav = useNavigate();
   const { usuario } = useAuth();
@@ -34,7 +36,9 @@ export default function Perfil() {
 
       <header className="sticky top-0 z-10 bg-bg flex items-center justify-between px-5 py-3.5">
         <span className="text-white font-[Oswald] text-lg font-bold tracking-[3px]">PERFIL</span>
-        <button onClick={() => nav('/config')} className="text-2xl">⚙️</button>
+        <button onClick={() => nav('/config')} className="text-2xl">
+          <img src={configIcon} alt="Configurações" />
+        </button>
       </header>
 
       <div className="h-24 bg-bg-card" />
