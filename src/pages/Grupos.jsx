@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import BottomNav from '../components/BottomNav';
 import { useAuth } from '../context/AuthContext';
 import { getGrupos, criarGrupo, entrarNoGrupo } from '../api/grupos';
+import { Plus, MessageSquare, Edit } from "lucide-react"
 
 export default function Grupos() {
   const { usuario } = useAuth();
@@ -105,9 +106,9 @@ export default function Grupos() {
               </p>
             </div>
             <div className="flex items-center gap-2.5">
-              <button className="text-xl" title="Chat">💬</button>
+              <button className="text-xl text-red" title="Chat"><MessageSquare size={20} /></button>
               {tab === 0
-                ? <button className="text-xl" title="Editar">✏️</button>
+                ? <button className="text-xl text-red" title="Editar"><Edit size={20} /></button>
                 : (
                   <span
                     onClick={() => handleEntrar(g.id)}
@@ -130,9 +131,9 @@ export default function Grupos() {
             />
             <button
               onClick={handleCriarGrupo}
-              className="h-[44px] px-4 bg-red text-white font-[Oswald] text-sm font-bold tracking-[2px] rounded flex items-center justify-center gap-2 hover:opacity-85 transition-opacity"
+              className="h-[44px] px-4 bg-red text-white font-[Oswald] text-sm font-bold tracking-[2px] rounded flex items-center justify-center gap-2 hover:opacity-85 transition-opacity uppercase"
             >
-              ➕ CRIAR
+              <Plus size={20} />Criar
             </button>
           </div>
         )}

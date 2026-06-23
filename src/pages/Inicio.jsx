@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import BottomNav from '../components/BottomNav';
 import { useAuth } from '../context/AuthContext';
 import { getTreinoHoje, getProximosTreinos } from '../api/treinos';
+import { Plus, TrendingUp } from "lucide-react"
 
 function CardStats({ item }) {
   return (
@@ -119,12 +120,12 @@ export default function Inicio() {
         <div className="flex gap-2.5 mt-2">
           <button
             onClick={() => nav('/novo-treino')}
-            className="flex-1 h-[50px] bg-red text-white font-[Oswald] text-xs font-bold tracking-[2px] rounded flex items-center justify-center gap-1.5 hover:opacity-85 transition-opacity"
+            className="flex-1 h-[50px] bg-red text-white font-[Oswald] text-xs font-bold tracking-[2px] rounded flex items-center justify-center gap-1.5 hover:opacity-85 transition-opacity uppercase"
           >
-            ➕ NOVO TREINO
+            <Plus size={20} /> Novo treino
           </button>
-          <button className="flex-1 h-[50px] border border-red text-red font-[Oswald] text-xs font-bold tracking-[2px] rounded flex items-center justify-center gap-1.5 hover:bg-red/10 transition-colors">
-            📈 VER PROGRESSO
+          <button className="flex-1 h-[50px] border border-red text-red font-[Oswald] text-xs font-bold tracking-[2px] rounded flex items-center justify-center gap-1.5 hover:bg-red/10 transition-colors *:">
+            <TrendingUp size={20} /> Ver progresso
           </button>
         </div>
       </main>
