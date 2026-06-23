@@ -35,7 +35,7 @@
           "reps": "8-Máx",
           "series": 2,
           "descanso": "2min.",
-          "concluido": true
+          "concluido": false
         },
         {
           "nome": "Barra fixa (supinada)",
@@ -43,7 +43,7 @@
           "reps": "8-Máx",
           "series": 1,
           "descanso": "2min.",
-          "concluido": true
+          "concluido": false
         },
         {
           "nome": "Puxada alta (fechada)",
@@ -51,7 +51,7 @@
           "reps": "8-12",
           "series": 3,
           "descanso": "1:30 - 2min.",
-          "concluido": true
+          "concluido": false
         },
         {
           "nome": "Pulldown (corda)",
@@ -59,7 +59,7 @@
           "reps": "8-12",
           "series": 3,
           "descanso": "1:30 - 2min.",
-          "concluido": true
+          "concluido": false
         },
         {
           "nome": "Serrote (máquina)",
@@ -67,7 +67,7 @@
           "reps": "10-12",
           "series": 3,
           "descanso": "1:30min.",
-          "concluido": true
+          "concluido": false
         }
       ]
     },
