@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import BottomNav from '../components/BottomNav';
 import { useAuth } from '../context/AuthContext';
 import { getTreinoHoje, getProximosTreinos } from '../api/treinos';
-import { Plus, TrendingUp } from "lucide-react"
+import { Plus, TrendingUp} from "lucide-react"
+import notificationIcon from '../assets/icons/notificationicon.png';
 
 function CardStats({ item }) {
   return (
@@ -50,12 +51,11 @@ export default function Inicio() {
   return (
     <div className="min-h-screen bg-bg flex flex-col">
 
-      <header className="sticky top-0 z-10 bg-bg flex items-center justify-between px-5 py-3.5">
-        <div className="flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded-full bg-bg-card flex items-center justify-center text-base">👤</div>
-          <span className="text-white font-[Oswald] text-lg font-bold tracking-[3px]">INÍCIO</span>
+      <header className="sticky top-0 z-10 bg-bg flex items-center justify-center px-5 py-3.5">
+        <div className="flex-1 flex justify-center">
+          <span className="text-white font-[Oswald] text-lg font-bold tracking-[3px] uppercase">Início</span>
         </div>
-        <span className="text-2xl cursor-pointer">🔔</span>
+        <img src={notificationIcon} className="w-5 h-5 object-contain cursor-pointer absolute right-5 brightness-0 invert opacity-40" alt="Notificações" />
       </header>
 
       <div className="flex border-b border-line px-5 mb-4">
@@ -124,7 +124,7 @@ export default function Inicio() {
           >
             <Plus size={20} /> Novo treino
           </button>
-          <button className="flex-1 h-[50px] border border-red text-red font-[Oswald] text-xs font-bold tracking-[2px] rounded flex items-center justify-center gap-1.5 hover:bg-red/10 transition-colors *:">
+          <button className="flex-1 h-[50px] border border-red text-red font-[Oswald] text-xs uppercase font-bold tracking-[2px] rounded flex items-center justify-center gap-1.5 hover:bg-red/10 transition-colors *:">
             <TrendingUp size={20} /> Ver progresso
           </button>
         </div>

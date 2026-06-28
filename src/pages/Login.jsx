@@ -1,16 +1,13 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import AdsLogo from '../components/AdsLogo';
+import googleIcon from '../assets/icons/googleicon.png';
+import appleIcon from '../assets/icons/appleicon.png';
+import stravaIcon from '../assets/icons/stravaicon.png';
+import eyeOpenIcon from '../assets/icons/eyeopen.svg';
+import eyeClosedIcon from '../assets/icons/eyeclosed.svg';
 import { useAuth } from '../context/AuthContext';
-
-function SocialBtn({ icon, label }) {
-  return (
-    <button className="w-full h-[50px] bg-red rounded flex items-center justify-center gap-2.5 text-white font-[Oswald] text-xs font-bold tracking-[2px] hover:opacity-85 transition-opacity">
-      <span className="text-lg">{icon}</span>
-      <span>{label}</span>
-    </button>
-  );
-}
+import { SocialBtn } from '../components/SocialBtn';
 
 export default function Login() {
   const nav = useNavigate();
@@ -42,8 +39,8 @@ export default function Login() {
           <AdsLogo size={130} />
         </div>
 
-        <h2 className="text-text-light font-[Oswald] text-lg font-bold tracking-[4px] text-center mb-7">
-          ENTRE COM SUA CONTA
+        <h2 className="text-text-light font-[Oswald] text-lg font-bold tracking-[4px] text-center mb-7 uppercase">
+          Entre com a sua conta
         </h2>
 
         {erro && (
@@ -75,7 +72,7 @@ export default function Login() {
               className="flex-1 text-white text-sm py-1.5 bg-transparent"
             />
             <button onClick={() => setShow(v => !v)} className="text-base pl-2">
-              {show ? '🙈' : '👁'}
+              {show ? <img src={eyeClosedIcon} alt="Esconder senha" className="w-5 h-5 object-contain brightness-0 invert opacity-40" /> : <img src={eyeOpenIcon} alt="Mostrar senha" className="w-5 h-5 object-contain brightness-0 invert opacity-40" />}
             </button>
           </div>
           <div className="flex justify-end mt-2">
@@ -102,9 +99,9 @@ export default function Login() {
         </div>
 
         <div className="flex flex-col gap-3 pb-10">
-          <SocialBtn icon="G"  label="ENTRE COM UMA CONTA GOOGLE" />
-          <SocialBtn icon="🍎" label="ENTRE COM UMA CONTA APPLE"  />
-          <SocialBtn icon="⚡" label="ENTRE COM UMA CONTA STRAVA" />
+          <SocialBtn icon={googleIcon} label="ENTRE COM UMA CONTA GOOGLE" />
+          <SocialBtn icon={appleIcon} label="ENTRE COM UMA CONTA APPLE" />
+          <SocialBtn icon={stravaIcon} label="ENTRE COM UMA CONTA STRAVA" />
         </div>
 
       </div>
