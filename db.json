@@ -44,6 +44,63 @@
         }
       ],
       "id": 1
+    },
+    {
+      "usuarioId": 1,
+      "nome": "Ombro / Abdominal",
+      "tipo": "PERSONALIZADO",
+      "duracao": 60,
+      "exercicios": [
+        {
+          "nome": "Elevação Lateral",
+          "reps": "6-8",
+          "peso": "12",
+          "series": 1,
+          "descanso": "1min.",
+          "concluido": false
+        },
+        {
+          "nome": "Elevação Frontal",
+          "reps": "8-12",
+          "peso": "20",
+          "series": 1,
+          "descanso": "1min.",
+          "concluido": false
+        },
+        {
+          "nome": "Desenvolvimento halter",
+          "reps": "8-12",
+          "peso": "22,5",
+          "series": 1,
+          "descanso": "1min.",
+          "concluido": false
+        },
+        {
+          "nome": "Abdominal Crunch",
+          "reps": "3",
+          "peso": "45s",
+          "series": 1,
+          "descanso": "1min.",
+          "concluido": false
+        },
+        {
+          "nome": "Prancha",
+          "reps": "3",
+          "peso": "1min.",
+          "series": 1,
+          "descanso": "1min.",
+          "concluido": false
+        },
+        {
+          "nome": "Elevação de Pernas",
+          "reps": "3",
+          "peso": "45s",
+          "series": 1,
+          "descanso": "1min.",
+          "concluido": false
+        }
+      ],
+      "id": 2
     }
   ],
   "categorias": [

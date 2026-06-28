@@ -4,6 +4,7 @@ import { useAuth } from "../context/AuthContext";
 import { getGrupos, criarGrupo, entrarNoGrupo } from "../api/grupos";
 import { Plus, MessageSquare, Edit } from "lucide-react";
 import lupaIcon from "../assets/icons/lupa.png";
+import notificationIcon from "../assets/icons/notificationicon.png";
 
 function CardGrupo({ g, eMeu, onEntrar }) {
   return (
@@ -99,12 +100,12 @@ export default function Grupos() {
   );
 
   return (
-    <div className="min-h-screen bg-bg text-text-light p-4 md:p-8 pb-24">
-      <div className="max-w-5xl mx-auto w-full flex flex-col space-y-6">
-      <header className="sticky top-0 z-10 bg-bg flex items-center justify-center px-5 py-3.5">
-        <div className="flex-1 flex justify-center">
-          <span className="text-white font-[Oswald] text-lg font-bold tracking-[3px] uppercase">Grupos</span>
-        </div>
+   <div className="min-h-screen bg-bg text-text-light p-4 md:p-8 pb-24">
+      <div className="max-w-5xl mx-auto w-full space-y-6">
+        
+        <header className="flex items-center justify-between border-b border-line pb-4 relative">
+          <span className="text-white font-[Oswald] text-2xl font-bold tracking-[3px] uppercase">Grupos</span>
+          <img src={notificationIcon} className="w-5 h-5 object-contain cursor-pointer brightness-0 invert opacity-40 hover:opacity-100 transition-opacity" alt="Notificações" />
         </header>
 
         <div className="flex items-center gap-2.5 bg-bg-card border border-line rounded-xl px-4 py-1">
