@@ -49,9 +49,9 @@ export default function Perfil() {
         <div className="bg-bg-card border border-line rounded-3xl p-8 flex flex-col items-center text-center shadow-2xl relative overflow-hidden">
           <div className="absolute top-0 w-full h-24" />
 
-          <div className="relative z-10">
+          <div className="relative z-10 items-center flex flex-col">
             <div className="w-24 h-24 rounded-full bg-bg-darker border-4 border-bg flex items-center justify-center text-4xl shadow-xl mb-4">
-              👤
+              DO
             </div>
             <h2 className="text-white font-[Oswald] text-2xl font-bold tracking-[4px] uppercase">
               {usuario.nome}

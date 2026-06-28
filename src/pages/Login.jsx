@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import AdsLogo from '../components/AdsLogo';
+import AdsLogo from '../assets/icons/adslogo.png';
 import googleIcon from '../assets/icons/googleicon.png';
 import appleIcon from '../assets/icons/appleicon.png';
 import stravaIcon from '../assets/icons/stravaicon.png';
@@ -36,7 +36,7 @@ export default function Login() {
       <div className="w-full max-w-[430px] mx-auto px-5 flex flex-col flex-1">
 
         <div className="flex justify-center py-6">
-          <AdsLogo size={130} />
+          <img src={AdsLogo} alt="ADS Logo" className="w-32 h-auto" />
         </div>
 
         <h2 className="text-text-light font-[Oswald] text-lg font-bold tracking-[4px] text-center mb-7 uppercase">

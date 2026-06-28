@@ -4,6 +4,8 @@ import BottomNav from "../components/BottomNav";
 import { useAuth } from "../context/AuthContext";
 import { getProximosTreinos } from "../api/treinos"; // Utilize o endpoint que lista todos do usuário
 import { Plus, Dumbbell } from "lucide-react";
+import muscleIcon from "../assets/icons/muscleicon.svg";
+import clockIcon from "../assets/icons/clockicon.svg";
 
 export default function Treinos() {
   const nav = useNavigate();
@@ -81,7 +83,7 @@ export default function Treinos() {
                       {treino.tipo}
                     </span>
                     <span className="text-[11px] text-text-muted group-hover:text-white transition-colors">
-                      Ver Ficha →
+                      Ver Ficha
                     </span>
                   </div>
                   <h3 className="text-white text-lg font-bold mb-4 line-clamp-1 group-hover:text-red transition-colors">
@@ -90,8 +92,14 @@ export default function Treinos() {
                 </div>
 
                 <div className="flex justify-between items-center border-t border-line/60 pt-3 text-xs text-text-muted">
-                  <span>⏱ {treino.duracao} min</span>
-                  <span>💪 {treino.exercicios?.length || 0} Exs</span>
+                  <div className="flex items-center gap-1">
+                    <img src={clockIcon} alt="Relógio" className="w-4 h-4 brightness-0 invert opacity-40"></img>
+                    <span>{treino.duracao} min</span>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <img src={muscleIcon} alt="Músculo" className="w-4 h-4 brightness-0 invert opacity-40" />
+                    <span>{treino.exercicios?.length || 0} Exs</span>
+                  </div>
                 </div>
               </div>
             ))}
