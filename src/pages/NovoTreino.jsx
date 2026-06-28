@@ -8,236 +8,126 @@ import { criarTreino } from '../api/treinos';
 export default function NovoTreino() {
   const nav = useNavigate();
   const { usuario } = useAuth();
-
   const [categorias, setCategorias] = useState([]);
-  const [erro, setErro] = useState('');
-  const [carregando, setCarregando] = useState(true);
-
   const [nomeTreino, setNomeTreino] = useState('');
-  const [filtroCategoria, setFiltroCategoria] = useState('');
   const [exerciciosSelecionados, setExerciciosSelecionados] = useState([]);
-
   const [categoriaAtiva, setCategoriaAtiva] = useState(null);
   const [repTemp, setRepTemp] = useState('');
+  const [seriesTemp, setSeriesTemp] = useState('');
   const [pesoTemp, setPesoTemp] = useState('');
 
   useEffect(() => {
     async function carregar() {
-      setCarregando(true);
-      setErro('');
       try {
         const data = await getCategorias();
         setCategorias(data);
-      } catch (e) {
-        setErro(e.message);
-      } finally {
-        setCarregando(false);
-      }
+      } catch (e) { console.error(e); }
     }
     carregar();
   }, []);
 
   function handleAdicionarEx(nomeDoExercicio) {
-    if (repTemp === '' || pesoTemp === '') {
-      alert('Por favor, preencha as Repetições e o Peso antes de adicionar!');
-      return;
-    }
-    setExerciciosSelecionados(list => [
-      ...list,
-      { id: Date.now(), nome: nomeDoExercicio, reps: repTemp, peso: pesoTemp, series: 1, descanso: '1min.', concluido: false },
-    ]);
-    setRepTemp('');
-    setPesoTemp('');
+    if (!repTemp || !pesoTemp || !seriesTemp) return alert('Preencha todas as informações!');
+    setExerciciosSelecionados([...exerciciosSelecionados, { 
+      id: Date.now(), nome: nomeDoExercicio, reps: repTemp, peso: pesoTemp, series: seriesTemp, descanso: '1min.', concluido: false 
+    }]);
+    setRepTemp(''); setPesoTemp(''); setSeriesTemp('');
   }
 
   async function handleSalvarTreino() {
-    if (nomeTreino.trim() === '') {
-      alert('Dê um nome ao seu treino antes de salvar!');
-      return;
-    }
-    if (exerciciosSelecionados.length === 0) {
-      alert('Adicione pelo menos um exercício ao treino!');
-      return;
-    }
-
+    if (!nomeTreino) return alert('Dê um nome ao treino!');
     try {
       await criarTreino({
         usuarioId: usuario.usuarioId,
         nome: nomeTreino,
         tipo: 'PERSONALIZADO',
         duracao: exerciciosSelecionados.length * 10,
-        exercicios: exerciciosSelecionados.map(({ nome, reps, peso, series, descanso, concluido }) => ({ nome, reps, peso, series, descanso, concluido })),
+        exercicios: exerciciosSelecionados
       });
-      nav('/inicio');
-    } catch (e) {
-      setErro(e.message);
-    }
+      nav('/treinos');
+    } catch (e) { alert(e.message); }
   }
 
-  const categoriasFiltradas = categorias.filter(cat =>
-    filtroCategoria === '' ? true : cat.id === filtroCategoria
-  );
-
   return (
-    <div className="min-h-screen bg-bg flex flex-col">
+    <div className="min-h-screen bg-bg text-text-light p-4 md:p-8 pb-24">
+      <div className="max-w-5xl mx-auto w-full space-y-6">
+        
+        <header className="flex items-center justify-between border-b border-line pb-4">
+          <button onClick={() => nav(-1)} className="text-text-muted text-xs hover:text-white uppercase font-bold">← Voltar</button>
+          <h1 className="text-white font-[Oswald] text-xl font-bold uppercase tracking-[3px]">Monte seu treino</h1>
+          <div className="w-10" />
+        </header>
 
-      <header className="sticky top-0 z-10 bg-bg px-5 py-3.5 flex items-center justify-between">
-        <button onClick={() => nav('/inicio')} className="text-text-muted text-xs font-semibold hover:text-white transition-colors">
-          Voltar
-        </button>
-        <h1 className="text-white font-[Oswald] text-lg font-bold tracking-[3px] text-center">MONTE SEU TREINO</h1>
-        <span className="w-10" />
-      </header>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="space-y-6">
+            <div className="bg-bg-card p-5 rounded-xl border border-line">
+              <label className="block text-text-muted text-[10px] font-bold uppercase mb-2">Nome do Treino</label>
+              <input
+                type="text"
+                placeholder="Ex: Treino de Costas Pesado"
+                value={nomeTreino}
+                onChange={e => setNomeTreino(e.target.value)}
+                className="w-full bg-bg-darker text-white p-3 rounded border border-line focus:border-red outline-none transition-all"
+              />
+            </div>
 
-      <main className="flex-1 overflow-y-auto px-5 pb-24">
-
-        {erro && (
-          <p className="bg-red/10 border border-red text-red text-xs rounded px-3 py-2 mb-4 text-center">
-            {erro}
-          </p>
-        )}
-
-        <div className="mb-5">
-          <label className="block text-text-muted text-xs mb-1.5">Nome do Treino</label>
-          <input
-            type="text"
-            placeholder="Ex: Costas / Pernas / Full-Body"
-            value={nomeTreino}
-            onChange={e => setNomeTreino(e.target.value)}
-            className="w-full bg-bg-card text-white text-sm p-2.5 rounded border border-line focus:outline-none focus:border-red transition-colors"
-          />
-        </div>
-
-        {carregando && <p className="text-text-muted text-sm">Carregando categorias...</p>}
-
-        {!carregando && (
-          <>
-            <div className="mb-6">
-              <p className="text-text-muted text-xs font-semibold mb-2">Tipo de exercício</p>
-              <div className="flex flex-wrap gap-3 text-xs">
-                <label className="flex items-center gap-1.5 cursor-pointer text-text-light hover:text-white transition-colors">
-                  <input type="radio" name="filtro" checked={filtroCategoria === ''} onChange={() => setFiltroCategoria('')} className="accent-red" />
-                  Todas
-                </label>
-                {categorias.map(c => (
-                  <label key={c.id} className="flex items-center gap-1.5 cursor-pointer text-text-light hover:text-white transition-colors">
-                    <input
-                      type="radio"
-                      name="filtro"
-                      checked={filtroCategoria === c.id}
-                      onChange={() => setFiltroCategoria(c.id)}
-                      className="accent-red"
-                    />
-                    {c.nome}
-                  </label>
+            <div className="space-y-3">
+              <h3 className="text-white font-[Oswald] text-sm font-bold uppercase tracking-wider">Categorias</h3>
+              <div className="grid grid-cols-1 gap-2">
+                {categorias.map(cat => (
+                  <div key={cat.id} className="bg-bg-card border border-line rounded-xl p-4 flex justify-between items-center">
+                    <div>
+                      <p className="text-white font-bold">{cat.nome}</p>
+                      <p className="text-[10px] text-text-muted uppercase">{cat.qtd} exercícios</p>
+                    </div>
+                    <button onClick={() => setCategoriaAtiva(cat)} className="bg-red text-white text-[10px] font-bold px-4 py-2 rounded-lg uppercase">Ver</button>
+                  </div>
                 ))}
               </div>
             </div>
+          </div>
 
-            {exerciciosSelecionados.length > 0 && (
-              <div className="mb-6">
-                <p className="text-red text-xs font-bold uppercase tracking-wide mb-2">Exercícios no Treino</p>
-                <div className="flex flex-col gap-2">
-                  {exerciciosSelecionados.map(ex => (
-                    <div key={ex.id} className="bg-bg-card border border-line p-3 rounded-lg flex justify-between items-center text-sm">
-                      <div>
-                        <p className="text-white font-semibold">{ex.nome}</p>
-                        <p className="text-text-muted text-xs">{ex.reps} repetições · {ex.peso} kg</p>
-                      </div>
-                      <button
-                        onClick={() => setExerciciosSelecionados(list => list.filter(i => i.id !== ex.id))}
-                        className="text-xs text-red font-semibold hover:underline"
-                      >
-                        Remover
-                      </button>
+          <div className="space-y-4">
+             <h3 className="text-red font-[Oswald] text-sm font-bold uppercase tracking-wider">Exercícios Selecionados ({exerciciosSelecionados.length})</h3>
+             <div className="bg-bg-card border border-line rounded-xl p-4 min-h-[200px] space-y-3">
+                {exerciciosSelecionados.length === 0 && <p className="text-text-muted text-center text-xs py-10">Nenhum exercício adicionado ainda.</p>}
+                {exerciciosSelecionados.map(ex => (
+                  <div key={ex.id} className="bg-bg-darker p-3 rounded-lg flex justify-between items-center border border-line">
+                    <div>
+                      <p className="text-white text-sm font-bold">{ex.nome}</p>
+                      <p className="text-[10px] text-text-muted">{ex.reps} Reps / {ex.peso}</p>
                     </div>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            <p className="text-text-muted text-xs font-semibold uppercase mb-2">Categorias</p>
-            <div className="flex flex-col gap-2.5">
-              {categoriasFiltradas.map(cat => (
-                <div key={cat.id} className="bg-bg-card border border-line rounded-xl p-4 flex items-center justify-between">
-                  <div>
-                    <p className="text-white font-semibold text-base">{cat.nome}</p>
-                    <p className="text-text-muted text-xs">{cat.qtd} exercícios</p>
+                    <button onClick={() => setExerciciosSelecionados(list => list.filter(i => i.id !== ex.id))} className="text-red font-bold text-[10px]">REMOVER</button>
                   </div>
-                  <button
-                    onClick={() => setCategoriaAtiva(cat)}
-                    className="bg-red hover:opacity-85 text-white font-semibold py-1.5 px-4 rounded text-xs uppercase tracking-wide transition-opacity"
-                  >
-                    Ver
-                  </button>
-                </div>
-              ))}
-            </div>
-
-            <button
-              onClick={handleSalvarTreino}
-              className="w-full bg-red hover:opacity-85 text-white font-[Oswald] font-bold py-3 rounded uppercase text-sm tracking-[3px] transition-opacity mt-6"
-            >
-              Salvar Treino Completo
-            </button>
-          </>
-        )}
-      </main>
+                ))}
+             </div>
+             <button onClick={handleSalvarTreino} className="w-full bg-red text-white font-[Oswald] py-4 rounded-xl font-bold tracking-[2px] hover:opacity-90 transition-opacity uppercase">
+                Salvar Treino Completo
+             </button>
+          </div>
+        </div>
+      </div>
 
       {categoriaAtiva && (
-        <div className="fixed inset-0 bg-black/70 flex items-center justify-center p-4 z-[60]">
-          <div className="bg-bg-card border border-line p-5 rounded-xl w-full max-w-md max-h-[85vh] overflow-y-auto shadow-2xl">
-            <div className="flex justify-between items-center border-b border-line pb-3 mb-4">
-              <div>
-                <h3 className="text-white font-[Oswald] text-lg font-bold uppercase tracking-wide">Escolha os Exercícios</h3>
-                <p className="text-xs text-text-muted">
-                  Categoria: <span className="text-red font-semibold">{categoriaAtiva.nome}</span>
-                </p>
-              </div>
-              <button
-                onClick={() => setCategoriaAtiva(null)}
-                className="text-xs bg-bg-darker border border-line px-2.5 py-1 rounded text-text-muted hover:text-white transition-colors font-semibold uppercase"
-              >
-                Fechar
-              </button>
-            </div>
-
-            <div className="flex flex-col gap-3">
-              {categoriaAtiva.exercicios.map((nomeEx, i) => (
-                <div key={i} className="bg-bg-darker border border-line p-3.5 rounded-lg space-y-2.5">
-                  <p className="text-white font-semibold text-sm">{nomeEx}</p>
-                  <div className="flex items-end gap-2 text-xs">
-                    <div className="w-1/3">
-                      <label className="text-text-muted block mb-1">Repetições</label>
-                      <input
-                        type="text"
-                        placeholder="8-12"
-                        value={repTemp}
-                        onChange={e => setRepTemp(e.target.value)}
-                        className="w-full bg-bg-card border border-line p-1.5 rounded text-white text-center focus:outline-none focus:border-red transition-colors"
-                      />
+        <div className="fixed inset-0 bg-black/80 flex items-center justify-center p-4 z-50">
+          <div className="bg-bg-card border border-line p-6 rounded-2xl w-full max-w-md max-h-[80vh] overflow-y-auto">
+             <div className="flex justify-between items-center mb-4 border-b border-line pb-2">
+                <h3 className="text-white font-[Oswald] font-bold uppercase">{categoriaAtiva.nome}</h3>
+                <button onClick={() => setCategoriaAtiva(null)} className="text-text-muted">Fechar</button>
+             </div>
+             <div className="space-y-4">
+                {categoriaAtiva.exercicios.map((ex, i) => (
+                  <div key={i} className="bg-bg-darker p-3 rounded-xl border border-line">
+                    <p className="text-white text-sm font-bold mb-3">{ex}</p>
+                    <div className="flex gap-2">
+                       <input placeholder="Séries" value={seriesTemp} onChange={e=>setSeriesTemp(e.target.value)} className="w-1/3 bg-bg p-2 rounded text-xs border border-line" />
+                       <input placeholder="Reps" value={repTemp} onChange={e=>setRepTemp(e.target.value)} className="w-1/3 bg-bg p-2 rounded text-xs border border-line" />
+                       <input placeholder="Kg/min." value={pesoTemp} onChange={e=>setPesoTemp(e.target.value)} className="w-1/3 bg-bg p-2 rounded text-xs border border-line" />
+                       <button onClick={() => handleAdicionarEx(ex)} className="w-1/3 bg-red text-white text-[10px] font-bold rounded">Adicionar</button>
                     </div>
-                    <div className="w-1/3">
-                      <label className="text-text-muted block mb-1">Peso (kg) / Tempo</label>
-                      <input
-                        type="text"
-                        placeholder="20 ou 1min."
-                        value={pesoTemp}
-                        onChange={e => setPesoTemp(e.target.value)}
-                        className="w-full bg-bg-card border border-line p-1.5 rounded text-white text-center focus:outline-none focus:border-red transition-colors"
-                      />
-                    </div>
-                    <button
-                      type="button"
-                      onClick={() => handleAdicionarEx(nomeEx)}
-                      className="w-1/3 bg-red hover:opacity-85 text-white font-semibold py-1.5 rounded uppercase tracking-wide transition-opacity"
-                    >
-                      Adicionar
-                    </button>
                   </div>
-                </div>
-              ))}
-            </div>
+                ))}
+             </div>
           </div>
         </div>
       )}

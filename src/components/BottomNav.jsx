@@ -5,7 +5,7 @@ import { Home, Dumbbell, Play, Users, User } from "lucide-react";
 const ITEMS = [
   { to: "/inicio", label: "Início", icon: Home, isImage: true },
   { to: "/treinos", label: "Treinos", icon: Dumbbell, isImage: true },
-  { to: "/novo-treino", label: "Começar", icon: Play, isImage: true },
+  { to: "/comecar", label: "Começar", icon: Play, isImage: true },
   { to: "/grupos", label: "Grupos", icon: Users, isImage: true },
   { to: "/perfil", label: "Perfil", icon: User, isImage: true },
 ];
