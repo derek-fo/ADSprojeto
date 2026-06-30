@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import AdsLogo from '../components/AdsLogo';
+import AdsLogo from '../assets/icons/adslogo.png';
 import { useAuth } from '../context/AuthContext';
 
 const CAMPOS = [
@@ -62,7 +62,7 @@ export default function NovaConta() {
       <div className="w-full max-w-[430px] mx-auto px-5 flex flex-col flex-1">
 
         <div className="flex justify-center pt-6 pb-5">
-          <AdsLogo size={100} />
+          <img src={AdsLogo} alt="AdsLogo" className="w-24 h-24" />
         </div>
 
         <h2 className="text-text-light font-[Oswald] text-xl font-bold tracking-[4px] text-center mb-6">
